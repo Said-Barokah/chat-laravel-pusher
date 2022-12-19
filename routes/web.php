@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\ChatsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,4 +33,15 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+
+    Route::get('/chat', [ChatsController::class, 'index'])->name('chat');
+    // Route::get('/messages', [ChatsController::class, 'fetchMessages'])->name('fetch.messages');
+    Route::post('/messages', [ChatsController::class, 'sendMessage'])->name('send.message');
+    Route::get('/messages/{idPsychologist}',[ChatsController::class, 'indexMessage'])->name('index.messages');
+    Route::get('/fetch/message/{idPsychologist}',[ChatsController::class, 'fetchMessages'])->name('fetch.messages');
+
+
 });
+
+
+
