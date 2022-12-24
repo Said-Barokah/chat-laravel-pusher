@@ -10,14 +10,10 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 //Add the following two models
-use App\Models\User;
-use App\Models\Message;
 class MessageSent implements ShouldBroadcast
 {
 
-    public $userId;
     public $message;
-    public $idPsychologist;
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     /**
@@ -25,11 +21,9 @@ class MessageSent implements ShouldBroadcast
      *
      * @return void
      */
-    public function __construct($userId,$message,$idPsychologist)
+    public function __construct($message)
     {
-        $this->userId = $userId;
         $this->message = $message;
-        $this->idPsychologist = $idPsychologist;
 
     }
 
@@ -40,6 +34,6 @@ class MessageSent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('chat');
+        return new Channel('chat');
     }
 }

@@ -31,26 +31,7 @@ class ChatsController extends Controller
     {
         $user = Auth::user();
         $psychologists = Psychologist::all();
-        $first = DB::statement('SELECT messages.id,users.id as u_id, users.email as u_email, sender_id,recipient_id,model_sender_id,model_recipient_id,message,messages.created_at,psychologists.email FROM messages
-        JOIN users ON IF(model_sender_id=2,users.id = sender_id,FALSE)
-        JOIN psychologists ON psychologists.id = recipient_id
-        WHERE sender_id = 1 AND recipient_id = 1');
-
-        $first = Message::select('messages.id', 'users.id as u_id', 'users.email as u_email', 'sender_id', 'recipient_id', 'model_sender_id', 'model_recipient_id', 'message', 'messages.created_at', 'psychologists.email')
-            ->join('users', 'users.id', '=', 'sender_id')
-            ->join('psychologists', 'psychologists.id', '=', 'recipient_id')
-            ->where('model_sender_id', '=', 2)
-            ->where('sender_id', '=', Auth::user()->id)
-            ->where('recipient_id', '=', $idPsychologist);
-
-        $messages = Message::select('messages.id as m_id', 'users.id as u_id', 'users.email as u_email', 'sender_id', 'recipient_id', 'model_sender_id', 'model_recipient_id', 'message', 'messages.created_at', 'psychologists.email')
-            ->join('users', 'users.id', '=', 'sender_id')
-            ->join('psychologists', 'psychologists.id', '=', 'recipient_id')
-            ->where('model_sender_id', '=', 1)
-            ->where('sender_id', '=', $idPsychologist)
-            ->where('recipient_id', '=', Auth::user()->id)->union($first)->orderBy('m_id')->get();
         return Inertia::render('Message', [
-            'messages' => $messages,
             "idPsychologist" => $idPsychologist,
             'user' => $user,
             'psychologists' => $psychologists
@@ -93,7 +74,7 @@ class ChatsController extends Controller
         $message->message = $request->message;
 
         $message->save();
-        broadcast(new MessageSent($user->id, $message,$request->idPsychologist))->toOthers();
+        broadcast(new MessageSent($message))->toOthers();
 
 
     }

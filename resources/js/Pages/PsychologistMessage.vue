@@ -1,11 +1,11 @@
 <script setup>
-import AppLayout from '@/Layouts/AppLayout.vue';
+import PsychologistAppLayout from '@/Layouts/PsychologistAppLayout.vue';
 import ChatUserList from '@/Components/ChatUserList.vue';
 import MessageList from '@/Components/MessageList.vue'
 </script>
 
 <template>
-    <AppLayout title="Chat">
+    <PsychologistAppLayout >
         <div class="">
             <div class=" mx-auto ">
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
@@ -31,13 +31,12 @@ import MessageList from '@/Components/MessageList.vue'
                             <!-- end chat list -->
                             <!-- message -->
                             <!-- end message -->
-                            <MessageList >
+                            <MessageList>
                             </MessageList>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </AppLayout>
+    </PsychologistAppLayout>
 </template>
-

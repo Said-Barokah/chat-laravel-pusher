@@ -24,7 +24,7 @@ const switchToTeam = (team) => {
 };
 
 const logout = () => {
-    Inertia.post(route('logout'));
+    Inertia.post(route('psychologist.logout'));
 };
 </script>
 
@@ -42,20 +42,20 @@ const logout = () => {
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
-                                <Link :href="route('dashboard')">
+                                <Link :href="route('psychologist.dashboard')">
                                     <ApplicationMark class="block h-9 w-auto" />
                                 </Link>
                             </div>
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
+                                <NavLink :href="route('psychologist.dashboard')" :active="route().current('psychologist.dashboard')">
                                     Dashboard
                                 </NavLink>
                             </div>
 
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink :href="route('chat')" :active="route().current('chat')">
+                                <NavLink :href="route('psychologist.chat')" :active="route().current('psychologist.chat')">
                                     Chat
                                 </NavLink>
                             </div>
@@ -160,14 +160,14 @@ const logout = () => {
                                         <div class="block px-4 py-2 text-xs text-gray-400">
                                             Manage Account
                                         </div>
-
-                                        <!-- <DropdownLink :href="route('profile.show')">
+<!--
+                                        <DropdownLink :href="route('psychologist.profile.show')">
                                             Profile
                                         </DropdownLink> -->
 
-                                        <!-- <DropdownLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')">
+                                        <DropdownLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')">
                                             API Tokens
-                                        </DropdownLink> -->
+                                        </DropdownLink>
 
                                         <div class="border-t border-gray-100" />
 
@@ -237,13 +237,13 @@ const logout = () => {
                         </div>
 
                         <div class="mt-3 space-y-1">
-                            <!-- <ResponsiveNavLink :href="route('profile.show')" :active="route().current('profile.show')">
+                            <!-- <ResponsiveNavLink :href="route('psychologist.profile.show')" :active="route().current('psychologist.profile.show')">
                                 Profile
                             </ResponsiveNavLink> -->
-<!--
+
                             <ResponsiveNavLink v-if="$page.props.jetstream.hasApiFeatures" :href="route('api-tokens.index')" :active="route().current('api-tokens.index')">
                                 API Tokens
-                            </ResponsiveNavLink> -->
+                            </ResponsiveNavLink>
 
                             <!-- Authentication -->
                             <form method="POST" @submit.prevent="logout">

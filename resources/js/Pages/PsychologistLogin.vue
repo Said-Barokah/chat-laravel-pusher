@@ -23,7 +23,7 @@ const submit = () => {
     form.transform(data => ({
         ...data,
         remember: form.remember ? 'on' : '',
-    })).post(route('login'), {
+    })).post(route('psychologist.login'), {
         onFinish: () => form.reset('password'),
     });
 };
@@ -52,7 +52,7 @@ const submit = () => {
                     required
                     autofocus
                 />
-                <InputError class="mt-2" :message="form.errors.email" />
+                <InputError class="mt-2" :message="$page.props.flash.error" />
             </div>
 
             <div class="mt-4">

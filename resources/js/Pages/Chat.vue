@@ -24,7 +24,7 @@ import ChatUserList from '@/Components/ChatUserList.vue';
                                 <!-- end search compt -->
                                 <!-- chat user list -->
 
-                                <ChatUserList :psychologists="psychologists" :user="user"></ChatUserList>
+                                <ChatUserList></ChatUserList>
                                 <!-- end user list -->
                             </div>
                             <!-- end chat list -->
@@ -37,13 +37,3 @@ import ChatUserList from '@/Components/ChatUserList.vue';
         </div>
     </AppLayout>
 </template>
-<script>
-
-
-export default {
-
-    props: ["user", "psychologists", 'messages', 'idPsychologist'],
-
-}
-
-</script>
