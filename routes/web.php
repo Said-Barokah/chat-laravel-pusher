@@ -6,6 +6,7 @@ use Inertia\Inertia;
 use App\Http\Controllers\ChatsController;
 use App\Http\Controllers\PsychologistController;
 use App\Http\Controllers\AuthenticatedSessionController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PsychologistChatsController;
 /*
 |--------------------------------------------------------------------------
@@ -50,3 +51,7 @@ Route::get('/chat-psychologist', [PsychologistChatsController::class, 'index'])-
 Route::post('/messages-psychologist', [PsychologistChatsController::class, 'sendMessage'])->name('psychologist.send.message');
 Route::get('/messages-psychologist/{idClient}',[PsychologistChatsController::class, 'indexMessage'])->name('psychologist.index.messages')->middleware('auth:psychologist');
 Route::get('/fetch-psychologist/message/{idClient}',[PsychologistChatsController::class, 'fetchMessages'])->name('psychologist.fetch.messages')->middleware('auth:psychologist');
+
+
+Route::get('/fetch/psychologists/',[DashboardController::class,'indexPsychologist'])->name('psychologist.index');
+Route::get('/fetch/packages/{idPsychologist}',[DashboardController::class,'indexPackages'])->name('package.index');

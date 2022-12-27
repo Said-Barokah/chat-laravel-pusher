@@ -86,14 +86,12 @@ export default {
         if (this.$page.props.idPsychologist) {
             this.fetchMessages(this.$page.props.idPsychologist)
         }
-        else if(this.$page.props.idClient){
+        else if (this.$page.props.idClient) {
             this.fetchMessagesClient(this.$page.props.idClient)
         }
         Echo.channel("chat").listen("MessageSent", e => {
-                this.messages.push(e.message)
-            });
-
-
+            this.messages.push(e.message)
+        });
     }
 }
 

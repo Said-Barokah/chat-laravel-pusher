@@ -9,6 +9,7 @@
             <div class="text-lg font-semibold"> {{ psychologist.name }} </div>
             <span class="text-gray-500">Pick me at 9:00 Am</span>
         </div>
+        <span v-show="notification !=0" class="bg-blue-600 text-white rounded-full w-9 text-center"> {{ notification }} </span>
     </Link>
     <Link v-show="$page.props.clients" :href="route('psychologist.index.messages',client.id)"  class="flex flex-row py-4 px-2 items-center border-b-2 justify-center" v-for="client in $page.props.clients">
         <div class="w-1/4">
@@ -19,6 +20,7 @@
             <div class="text-lg font-semibold"> {{ client.name }} </div>
             <span class="text-gray-500">Pick me at 9:00 Am</span>
         </div>
+        <span v-show="notification !=0" class="bg-blue-600 text-white rounded-full w-9 text-center"> {{ notification }} </span>
     </Link>
 
 </template>
@@ -30,5 +32,16 @@ export default{
         Head,
         Link
     },
+
+    data(){
+        return {
+            notification : 0
+        }
+    },
+    mounted(){
+        Echo.channel("chat").listen("MessageSent", e => {
+            this.notification += 1
+        });
+    }
 }
 </script>
