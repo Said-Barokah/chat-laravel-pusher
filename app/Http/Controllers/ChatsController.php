@@ -13,9 +13,12 @@ use Carbon\Carbon as Time;
 
 class ChatsController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
+    public function coba(){
+        return Inertia::render('Coba');
     }
 
     public function index()
@@ -41,10 +44,7 @@ class ChatsController extends Controller
 
     public function fetchMessages($idPsychologist)
     {
-        $first = DB::statement('SELECT messages.id,users.id as u_id, users.email as u_email, sender_id,recipient_id,model_sender_id,model_recipient_id,message,messages.created_at,psychologists.email FROM messages
-        JOIN users ON IF(model_sender_id=2,users.id = sender_id,FALSE)
-        JOIN psychologists ON psychologists.id = recipient_id
-        WHERE sender_id = 1 AND recipient_id = 1');
+
 
         $first = Message::select('messages.id', 'users.id as u_id', 'users.email as u_email', 'sender_id', 'recipient_id', 'model_sender_id', 'model_recipient_id', 'message', 'messages.created_at', 'psychologists.email','read_at')
             ->join('users', 'users.id', '=', 'sender_id')

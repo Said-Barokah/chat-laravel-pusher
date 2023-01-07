@@ -7,7 +7,11 @@ use App\Http\Controllers\ChatsController;
 use App\Http\Controllers\PsychologistController;
 use App\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PsychologistChatsController;
+use App\Http\Controllers\PaymentController;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,21 +23,11 @@ use App\Http\Controllers\PsychologistChatsController;
 |
 */
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
-
+Route::get('/', [HomeController::class,'index'])->name('home');
 Route::middleware([ 'auth:sanctum', config('jetstream.auth_session'),'verified',])->group(function () {
 
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->name('dashboard');
-
+    Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
+    Route::get('/dashboard/history-payment',[DashboardController::class,'historyPayment'])->name('history.payment');
     Route::get('/chat', [ChatsController::class, 'index'])->name('chat');
     Route::post('/messages', [ChatsController::class, 'sendMessage'])->name('send.message');
     Route::get('/messages/{idPsychologist}',[ChatsController::class, 'indexMessage'])->name('index.messages');
@@ -55,3 +49,7 @@ Route::get('/fetch-psychologist/message/{idClient}',[PsychologistChatsController
 
 Route::get('/fetch/psychologists/',[DashboardController::class,'indexPsychologist'])->name('psychologist.index');
 Route::get('/fetch/packages/{idPsychologist}',[DashboardController::class,'indexPackages'])->name('package.index');
+
+Route::get('/payment/history/',[PaymentController::class,'index'])->name('payment.index');
+Route::get('/payment/package/{packageId}',[PaymentController::class,'getToken'])->name('snap.payment');
+Route::post('/payment/package/{packageId}',[PaymentController::class,'store'])->name('payment');

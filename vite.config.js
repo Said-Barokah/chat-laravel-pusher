@@ -1,7 +1,9 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
+// import fs from 'fs';
 
+// const host = 'localhost'; 
 export default defineConfig({
     plugins: [
         laravel({
@@ -21,4 +23,13 @@ export default defineConfig({
     ssr: {
         noExternal: ['@inertiajs/server'],
     },
+    // server: { 
+    //     host, 
+    //     hmr: { host }, 
+    //     https: { 
+    //         key: fs.readFileSync('C:/SSL/bin/server.key'),
+    //         cert: fs.readFileSync('C:/SSL/bin/server.crt'), 
+    //     }, 
+    // }, 
 });
+
