@@ -15,7 +15,7 @@ import Polkadot from '@/Components/Polkadot.vue'
             <div
                 class="border-primary shadow-pricing relative z-10 mb-10 overflow-hidden rounded-xl border border-opacity-20 bg-white py-10 px-8 sm:p-12 lg:py-10 lg:px-6 xl:p-12">
                 <span class="text-primary mb-4 block text-lg font-semibold">
-                    {{ PackageCard.name }}
+                    {{ PackageCard.pack_name }}
                 </span>
                 <h2 class="text-dark mb-5 text-[42px] font-bold">
                     {{ PackageCard.price }}

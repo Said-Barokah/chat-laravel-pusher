@@ -1,4 +1,5 @@
 <script setup>
+
 import Heroes from '@/Components/Heroes.vue';
 import PschicologistCards from '@/Components/PschicologistCards.vue';
 import CorouselClient from '@/Components/CorouselClient.vue'

@@ -26,16 +26,28 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 Route::get('/', [HomeController::class,'index'])->name('home');
 Route::middleware([ 'auth:sanctum', config('jetstream.auth_session'),'verified',])->group(function () {
 
-    Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
-    Route::get('/dashboard/history-payment',[DashboardController::class,'historyPayment'])->name('history.payment');
+    
     Route::get('/chat', [ChatsController::class, 'index'])->name('chat');
     Route::post('/messages', [ChatsController::class, 'sendMessage'])->name('send.message');
     Route::get('/messages/{idPsychologist}',[ChatsController::class, 'indexMessage'])->name('index.messages');
     Route::get('/fetch/message/{idPsychologist}',[ChatsController::class, 'fetchMessages'])->name('fetch.messages');
 
+    Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
+    Route::get('/dashboard/history-payment',[DashboardController::class,'historyPayment'])->name('history.payment');
+    Route::get('/dashboard/payment/{orderId}/history',[PaymentController::class,'show'])->name('payment.show');
+    Route::get('/dashboard/payment/{orderId}/chat',[PaymentController::class,'chat'])->name('payment.chat');
+    Route::get('/dashboard/chat/{orderId}/fetch',[ChatsController::class,'fetchMessages'])->name('fetch.chat');
+    Route::post('/dashboard/chat/{orderId}/send',[ChatsController::class,'sendMessage'])->name('send.chat');
+
 });
 
 Route::get('/dashboard-psychologist',[PsychologistController::class, 'dashboard'])->name('psychologist.dashboard');
+Route::get('/dashboard-psychologist/history-payment',[PsychologistController::class,'historyPayment'])->name('psychologist.history.payment');
+Route::get('/dashboard-psychologist/payment/{orderId}/history',[PsychologistController::class,'showPayment'])->name('psychologist.payment.show');
+Route::get('/dashboard-psychologist/payment/{orderId}/chat',[PsychologistController::class,'chatClient'])->name('psychologist.payment.chat');
+Route::get('/dashboard/chat/{orderId}/fetch',[PsychologistController::class,'fetchMessages'])->name('psychologist.fetch.chat');
+Route::post('/dashboard/chat/{orderId}/send',[PsychologistController::class,'sendMessage'])->name('send.chat');
+
 
 Route::get('/login-psychologist',[AuthenticatedSessionController::class,'createPsychologist'])->name('psychologist.login');
 Route::post('/login-psychologist',[AuthenticatedSessionController::class,'storePsychologist'])->name('psychologist.login');

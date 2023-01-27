@@ -8,6 +8,11 @@
         <input class="w-full bg-gray-300 py-5 px-3 rounded-xl" type="text" placeholder="type your message here..."
         v-model="newMessage" @keyup.enter="sendMessageClient" />
     </div>
+
+    <div v-show="$page.props.canChat" class="py-5">
+        <input class="w-full bg-gray-300 py-5 px-3 rounded-xl" type="text" placeholder="type your message here..."
+        v-model="newMessage" @keyup.enter="sendMessage" />
+    </div>
 </template>
 <script>
 export default {
@@ -19,8 +24,8 @@ export default {
     methods: {
         sendMessage() {
             this.$emit("messagesent", {
-                userId: this.$page.props.user.id,
-                idPsychologist : this.$page.props.idPsychologist,
+                orderId : this.$page.props.order[0].order_id,
+                model_sender_id : 2,
                 message: this.newMessage,
             });
             //Clear the input

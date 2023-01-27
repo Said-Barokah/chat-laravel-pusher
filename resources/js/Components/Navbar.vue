@@ -13,7 +13,7 @@ import { Link } from '@inertiajs/inertia-vue3';
                 <div v-if="!$page.props.user" class="absolute right-[10px]">
                     <Link :href="route('login')" as="button"
                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mr-3">
-                    
+                        Login
                     </Link>
                     <Link :href="route('register')"
                         class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded-full">

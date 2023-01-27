@@ -24,8 +24,9 @@ class DashboardController extends Controller
 
     public function indexPackages($idPsychologist){
 
-        $packages = PsychologistPackage::where('psychologist_id','=',$idPsychologist)
+        $packages = PsychologistPackage::select('psychologist_packages.id','psychologist_packages.price','packages.name as pack_name','packages.name as pack_id')
                                         ->join('packages','package_id','=','packages.id')
+                                        ->where('psychologist_id','=',$idPsychologist)
                                         ->get();
         return ['packages' => $packages];
 
@@ -33,10 +34,13 @@ class DashboardController extends Controller
 
     public function historyPayment(){
 
-        $orders = Order::select('orders.created_at','midtra','psychologists.name')
+        $orders = Order::select('orders.created_at','midtra','psychologists.name as psy_name','packages.name as pack_name','number as order_id')
                         ->join('psychologist_packages','psychologist_packages.id','=','psychologist_package_id')
                         ->join('psychologists','psychologists.id','=','psychologist_packages.psychologist_id')
-                        ->where('user_id','=',Auth::user()->id)->get();
+                        ->join('packages','packages.id','=','psychologist_packages.package_id')
+                        ->where('user_id','=',Auth::user()->id)
+                        ->orderBy('orders.id','DESC')
+                        ->get();
         return Inertia::render('PaymentHistory',[
             'orders' => $orders
         ]);

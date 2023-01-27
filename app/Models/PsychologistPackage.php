@@ -8,5 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class PsychologistPackage extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
     
 }

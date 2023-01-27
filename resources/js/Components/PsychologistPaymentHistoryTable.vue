@@ -1,5 +1,5 @@
 <script setup>
-import Invoice from '@/Components/Invoice.vue'
+import PsychologistInvoice from '@/Components/PsychologistInvoice.vue'
 </script>
 <template>
     <div class="container mx-auto px-4 sm:px-8">
@@ -64,7 +64,7 @@ import Invoice from '@/Components/Invoice.vue'
                                 </th>
                                 <th
                                     class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                                    Psychologist
+                                    Client
                                 </th>
                                 <th class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
                                     Paket
@@ -101,7 +101,7 @@ import Invoice from '@/Components/Invoice.vue'
                                     </div>
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                    <p class="text-gray-900 whitespace-no-wrap"> {{ payment.psy_name }} </p>
+                                    <p class="text-gray-900 whitespace-no-wrap"> {{ payment.uname }} </p>
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                     <p class="text-gray-900 whitespace-no-wrap"> {{ payment.pack_name }} </p>
@@ -136,7 +136,7 @@ import Invoice from '@/Components/Invoice.vue'
                     </div>
 
                     <div  v-if="showInvoice" class="fixed top-0 bottom-0 left-0 right-0 min-w-full z-50 bg-black bg-opacity-10">
-                        <Invoice @invoice-off="invoiceOff()" :invoice="invoice"/>
+                        <PsychologistInvoice @invoice-off="invoiceOff()" :invoice="invoice"/>
                     </div>
                 </div>
             </div>
@@ -175,7 +175,7 @@ export default {
             this.invoice = [];
         },
         orderShow(orderId){
-            axios.get(`/dashboard/payment/${orderId}/history`).then( response => {
+            axios.get(`/dashboard-psychologist/payment/${orderId}/history`).then( response => {
                 this.invoice = response.data.order;
                 this.transaction = response.data.transaction;
                 this.showInvoice = true

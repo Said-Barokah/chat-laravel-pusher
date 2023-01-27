@@ -16,8 +16,11 @@ return new class extends Migration
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
             //insert the lines below
-            $table->integer('sender_id')->unsigned();
-            $table->integer('recipient_id')->unsigned();
+            $table->unsignedBigInteger('order_id');
+            $table->foreign('order_id')->references('id')->on('orders');
+
+            // $table->integer('sender_id')->unsigned();
+            // $table->integer('recipient_id')->unsigned();
 
             $table->unsignedBigInteger('model_sender_id');
             $table->foreign('model_sender_id')->references('id')->on('models');

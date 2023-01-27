@@ -44,8 +44,6 @@ class PsychologistChatsController extends Controller
 
     public function fetchMessages($idClient)
     {
-
-
         $first = Message::select('messages.id', 'users.id as u_id', 'users.email as u_email', 'sender_id', 'recipient_id', 'model_sender_id', 'model_recipient_id', 'message', 'messages.created_at', 'psychologists.email','read_at')
             ->join('users', 'users.id', '=', 'sender_id')
             ->join('psychologists', 'psychologists.id', '=', 'recipient_id')

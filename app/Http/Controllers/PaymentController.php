@@ -9,6 +9,7 @@ use App\Services\Midtrans\Midtrans;
 use Illuminate\Http\Request;
 use Midtrans\Notification;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 use Midtrans\Transaction;
 use Midtrans\Config;
 
@@ -49,11 +50,46 @@ class PaymentController extends Controller
         return ['token' => $snapToken];
     }
 
-    public function store($idPackage, Request $request){
+    public function show($orderId){
+        $transaction = Transaction::status($orderId);
+        // return dd($transaction);
+        if($transaction->transaction_status == 'settlement'){
+            $order = Order::where('number','=',$orderId)->update(['payment_status' => 2]);
+        }
+        // $order = Order::join('psychologist_packages','orders.psychologist_package_id','=','psychologist_packages.id')
+        //                 ->join('psychologists','psychologists.id','=','psychologist_packages.psychologist_id')
+        //                 ->where('number','=',$orderId)
+        //                 ->where('user_id','=',Auth::user()->id)
+        //                 ->get(); 
+        $order = Order::where('number','=',$orderId)
+                        ->where('user_id','=',Auth::user()->id)
+                        ->get(); 
+        return [
+            'order' => $order,
+            'transaction' => $transaction
+            ];
+    }
 
-        $status = $request->payment_status;
-        $midtra = null ;
-        $code = null;
+    public function chat($orderId){
+        $order = Order::select('psychologists.name as psy_name','orders.number as order_id','orders.start_from as start')
+                        ->join('psychologist_packages','orders.psychologist_package_id','=','psychologist_packages.id')
+                        ->join('psychologists','psychologists.id','=','psychologist_packages.psychologist_id')
+                        ->where('number','=',$orderId)
+                        ->where('user_id','=',Auth::user()->id)
+                        ->get(); 
+        $canChat = null;
+        if($order[0]->start == null){
+            $canChat = True;
+        }
+        return Inertia::render('Message',[
+            'showMessage' => True,
+            'canChat' => $canChat,
+            'order' => $order
+        ]);
+    }
+
+    public function store($idPackage, Request $request){
+        $status = $request->transaction_status;
         // $fraud = $notif->fraud_status;
         if($status == 'pending'){
             $status = 1;
@@ -70,14 +106,17 @@ class PaymentController extends Controller
                 }
             }
             if($request->payment_type == 'cstore'){
-                $midtra = 'cstore (Alfa Group/Indomaret)';
+                $midtra = 'Indomaret';
+                if($request->fraud_status){
+                    $midtra = 'Alfamaret';
+                }
+                
                 $code = $request->payment_code;
             }
             if($request->payment_type == 'qris'){
                 $midtra = 'qris (shopee pay/gopay)';
             }   
         }
-        
         Order::create([
             'payment_type' => $request->payment_type,
             'midtra' => $midtra,
