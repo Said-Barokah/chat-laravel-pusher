@@ -92,7 +92,7 @@ import PsychologistInvoice from '@/Components/PsychologistInvoice.vue'
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                     <div class="flex items-center">
-                                       
+
                                         <div class="ml-3">
                                             <p class="text-gray-900 whitespace-no-wrap">
                                                 {{ payment.midtra }}
@@ -115,8 +115,8 @@ import PsychologistInvoice from '@/Components/PsychologistInvoice.vue'
                                     <p class=" whitespace-no-wrap" @click="orderShow(payment.order_id)"> cek selengkapnya </p>
                                 </td>
                             </tr>
-            
-                        </tbody> 
+
+                        </tbody>
                     </table>
                     <div
                         class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
@@ -149,7 +149,7 @@ import axios from 'axios';
 import moment from 'moment'
 
 // const moment = require('moment')
-       
+
 
 
 
@@ -168,7 +168,7 @@ export default {
         },
         change(date){
             moment.locale('id')
-            return moment(date).format('DD-MMMM-YYYY, h:mm a'); 
+            return moment(date).format('DD-MMMM-YYYY, h:mm a');
         },
         invoiceOff(){
             this.showInvoice = false;
@@ -180,7 +180,7 @@ export default {
                 this.transaction = response.data.transaction;
                 this.showInvoice = true
             })
-            
+
         }
     }
 }

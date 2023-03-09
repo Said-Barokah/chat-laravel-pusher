@@ -3,6 +3,7 @@
 import { Link } from '@inertiajs/inertia-vue3';
 import Polkadot from '@/Components/Polkadot.vue';
 
+
 </script>
 <template>
     <div class="relative my-3 h-screen flex justify-center items-center antialiased text-gray-900">
@@ -41,8 +42,8 @@ import Polkadot from '@/Components/Polkadot.vue';
 
                 <div class="mb-7">
                 </div>
-                
-                <Link :href="route('psychologist.payment.chat',invoice[0].number)" 
+
+                <Link :href="route('psychologist.payment.chat',invoice[0].number)"
                     class="text-primary bg-sky-300 text-white hover:bg-white hover:border-sky-300 hover:text-sky-300  block w-full rounded-md border p-4 text-center text-base font-semibold transition ">
                     Chat Client sekarang
                 </Link >
@@ -53,7 +54,15 @@ import Polkadot from '@/Components/Polkadot.vue';
     </div>
 </template>
 <script>
+
+
 export default {
+    data() {
+      return {
+        value: 'https://example.com',
+        size: 300,
+      }
+    },
     props: ['transaction','invoice'],
     methods: {
         paymentStatus(statusId) {

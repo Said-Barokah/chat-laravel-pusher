@@ -73,8 +73,8 @@ import CorouselClient from '@/Components/CorouselClient.vue'
                     class="mt-[20px] font-montserrat leading-7 font-extralight text-3xl font-700 tracking-wide text-gray-800 md:text-[29px]">
                     Almost before we knew it,<span class="block">we had left the ground</span> </h2>
             </div>
-            
-            
+
+
             <button class="group relative h-12 w-48 overflow-hidden rounded-lg bg-[#1f2937] text-lg shadow">
                 <div
                     class="absolute inset-0 w-0 bg-blue-300 transition-all duration-[250ms] animate-pulse group-hover:w-full">

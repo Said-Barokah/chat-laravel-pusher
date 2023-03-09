@@ -13,23 +13,23 @@ use Inertia\Inertia;
 use Midtrans\Transaction;
 use Midtrans\Config;
 
-class PaymentController extends Controller 
+class PaymentController extends Controller
 {
     protected $serverKey;
     protected $isProduction;
     protected $isSanitized;
     protected $is3ds;
- 
+
     public function __construct()
     {
         $this->serverKey = config('midtrans.server_key');
         $this->isProduction = config('midtrans.is_production');
         $this->isSanitized = config('midtrans.is_sanitized');
         $this->is3ds = config('midtrans.is_3ds');
- 
+
         $this->_configureMidtrans();
     }
- 
+
     public function _configureMidtrans()
     {
         Config::$serverKey = $this->serverKey;
@@ -60,10 +60,10 @@ class PaymentController extends Controller
         //                 ->join('psychologists','psychologists.id','=','psychologist_packages.psychologist_id')
         //                 ->where('number','=',$orderId)
         //                 ->where('user_id','=',Auth::user()->id)
-        //                 ->get(); 
+        //                 ->get();
         $order = Order::where('number','=',$orderId)
                         ->where('user_id','=',Auth::user()->id)
-                        ->get(); 
+                        ->get();
         return [
             'order' => $order,
             'transaction' => $transaction
@@ -76,7 +76,7 @@ class PaymentController extends Controller
                         ->join('psychologists','psychologists.id','=','psychologist_packages.psychologist_id')
                         ->where('number','=',$orderId)
                         ->where('user_id','=',Auth::user()->id)
-                        ->get(); 
+                        ->get();
         $canChat = null;
         if($order[0]->start == null){
             $canChat = True;
@@ -110,12 +110,12 @@ class PaymentController extends Controller
                 if($request->fraud_status){
                     $midtra = 'Alfamaret';
                 }
-                
+
                 $code = $request->payment_code;
             }
             if($request->payment_type == 'qris'){
                 $midtra = 'qris (shopee pay/gopay)';
-            }   
+            }
         }
         Order::create([
             'payment_type' => $request->payment_type,

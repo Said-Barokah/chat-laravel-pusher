@@ -2,7 +2,7 @@
 
 import { Link } from '@inertiajs/inertia-vue3';
 import Polkadot from '@/Components/Polkadot.vue';
-
+import QrcodeVue from 'qrcode.vue'
 </script>
 <template>
     <div class="relative my-3 h-screen flex justify-center items-center antialiased text-gray-900">
@@ -34,6 +34,9 @@ import Polkadot from '@/Components/Polkadot.vue';
                     Kode Pembayaran
                 </span>
 
+                <QrcodeVue v-show="transaction.payment_type=='qris'" :value="'https://api.sandbox.midtrans.com/v2/qris/shopeepay/sppq_'+transaction.transaction_id+'/qr-code'" size="300" level="H"/>
+
+
                 <h2 class="text-dark mb-5 text-[42px] font-bold">
                     {{ invoice[0].payment_code }}
                     <span class="text-body-color text-base font-medium"> / {{ invoice[0].midtra }} </span>
@@ -41,8 +44,8 @@ import Polkadot from '@/Components/Polkadot.vue';
 
                 <div class="mb-7">
                 </div>
-                
-                <Link :href="route('payment.chat',invoice[0].number)" 
+
+                <Link :href="route('payment.chat',invoice[0].number)"
                     class="text-primary bg-sky-300 text-white hover:bg-white hover:border-sky-300 hover:text-sky-300  block w-full rounded-md border p-4 text-center text-base font-semibold transition ">
                     Chat Psikolog sekarang
                 </Link >
@@ -66,7 +69,8 @@ export default {
             if (statusId == '3') {
                 return ('Kadaluarsa')
             }
-        }
+        },
+
     }
 }
 </script>

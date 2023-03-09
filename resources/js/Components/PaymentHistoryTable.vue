@@ -92,7 +92,7 @@ import Invoice from '@/Components/Invoice.vue'
                                 </td>
                                 <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                                     <div class="flex items-center">
-                                       
+
                                         <div class="ml-3">
                                             <p class="text-gray-900 whitespace-no-wrap">
                                                 {{ payment.midtra }}
@@ -115,8 +115,8 @@ import Invoice from '@/Components/Invoice.vue'
                                     <p class=" whitespace-no-wrap" @click="orderShow(payment.order_id)"> cek selengkapnya </p>
                                 </td>
                             </tr>
-            
-                        </tbody> 
+
+                        </tbody>
                     </table>
                     <div
                         class="px-5 py-5 bg-white border-t flex flex-col xs:flex-row items-center xs:justify-between          ">
@@ -136,7 +136,7 @@ import Invoice from '@/Components/Invoice.vue'
                     </div>
 
                     <div  v-if="showInvoice" class="fixed top-0 bottom-0 left-0 right-0 min-w-full z-50 bg-black bg-opacity-10">
-                        <Invoice @invoice-off="invoiceOff()" :invoice="invoice"/>
+                        <Invoice @invoice-off="invoiceOff()" :invoice="invoice" :transaction="transaction"/>
                     </div>
                 </div>
             </div>
@@ -149,7 +149,7 @@ import axios from 'axios';
 import moment from 'moment'
 
 // const moment = require('moment')
-       
+
 
 
 
@@ -168,7 +168,7 @@ export default {
         },
         change(date){
             moment.locale('id')
-            return moment(date).format('DD-MMMM-YYYY, h:mm a'); 
+            return moment(date).format('DD-MMMM-YYYY, h:mm a');
         },
         invoiceOff(){
             this.showInvoice = false;
@@ -180,7 +180,7 @@ export default {
                 this.transaction = response.data.transaction;
                 this.showInvoice = true
             })
-            
+
         }
     }
 }
